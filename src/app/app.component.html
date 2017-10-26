@@ -1,5 +1,81 @@
-<h1>Out MongoDB is working!</h1>
+<div>
+  Records count: <span>{{count.count}}</span><br>
+  Query time: <span>{{count.time}}</span>
+</div>
+<br>
 
-<ul>
-  <li *ngFor="let user of users">{{ user.name }}</li>
-</ul>
+<form id="form" [formGroup]="form">
+  <div formArrayName="sic">
+    <label>Industry: </label>
+    <div *ngFor="let address of form.controls.sic.controls; let i=index">
+      <span [formGroupName]="i">
+        <input type="text" formControlName="sic">
+        <button (click)="addSic()"> + </button>
+        <button *ngIf="form.controls.sic.controls.length > 1" (click)="removeSic(i)"> - </button>
+      </span>
+    </div>
+  </div>
+
+  <div formArrayName="countries">
+    <label>Country:</label>
+    <div *ngFor="let address of form.controls.countries.controls; let i=index">
+      <span [formGroupName]="i">
+        <select formControlName="country">
+          <option value=""> - Select - </option>
+          <option value="DE">DE</option>
+          <option value="AT">AT</option>
+        </select>
+        <button (click)="addCountry()"> + </button>
+        <button *ngIf="form.controls.countries.controls.length > 1" (click)="removeCountry(i)"> - </button>
+      </span>
+    </div>
+  </div>
+
+  <div formArrayName="state">
+    <label>State:</label>
+    <div *ngFor="let address of form.controls.state.controls; let i=index">
+      <span [formGroupName]="i">
+        <select formControlName="state">
+          <option value=""> - Select - </option>
+          <option *ngFor="let state of states">{{state.name}}</option>
+        </select>
+        <button (click)="addState()"> + </button>
+        <button *ngIf="form.controls.state.controls.length > 1" (click)="removeState(i)"> - </button>
+      </span>
+    </div>
+  </div>
+  <br>
+  <div>
+    <label>Employees from: </label>
+    <input type="text" formControlName="employeeFrom">
+  </div>
+  <div>
+    <label>Employees to: </label>
+    <input type="text" formControlName="employeeTo">
+  </div>
+  <div>
+    <label>Turnover from: </label>
+    <input type="text" formControlName="turnoverFrom">
+  </div>
+  <div>
+    <label>Turnover to: </label>
+    <input type="text" formControlName="turnoverTo">
+  </div>
+
+  <div>
+    <label>Found from: </label>
+    <select formControlName="foudateFrom">
+      <option value=""> --- </option>
+      <option *ngFor="let found of foundate"> {{found}} </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Found to: </label>
+    <select formControlName="foudateTo">
+      <option value=""> --- </option>
+      <option *ngFor="let found of foundate"> {{found}} </option>
+    </select>
+  </div>
+
+</form>
